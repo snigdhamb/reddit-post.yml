@@ -19,10 +19,4 @@ flair_text = "Sublease"  # The text of the tag (flair)
 # Submit the post
 subreddit = reddit.subreddit(subreddit_name)
 submission = subreddit.submit(title, selftext=body)
-
-# Set the flair (if subreddit has flair enabled)
-for flair in subreddit.flair.link_templates:  # Get available flairs
-    if flair["text"] == flair_text:
-        submission.flair.select(flair["id"])
-        print(f"Flair '{flair_text}' applied!")
-        break
+submission.flair.select("Sublease")  # Replace with actual flair ID
