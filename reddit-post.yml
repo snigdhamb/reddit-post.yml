@@ -1,0 +1,29 @@
+name: Weekly Reddit Post
+
+on:
+  schedule:
+    - cron: '0 12 * * 1'  # Runs every Monday at 12:00 UTC
+
+jobs:
+  post_to_reddit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install praw
+
+      - name: Run script
+        env:
+          CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
+          USER_AGENT: "your_user_agent"
+        run: python post_script.py
